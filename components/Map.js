@@ -2,7 +2,12 @@ import { StyleSheet, Text, View } from "react-native";
 import React, { useRef, useEffect, useState } from "react";
 import MapView, { Marker } from "react-native-maps";
 import { useDispatch, useSelector } from "react-redux";
-import { selectDestination, selectParkingMarker, setParking } from "../slices/navSlice";
+import {
+  selectDestination,
+  selectGarageList,
+  selectParkingMarker,
+  setParking,
+} from "../slices/navSlice";
 import mapStyle from "../assets/mapStyle.json";
 import imagePath from "../utilities/imagePath";
 import { GOOGLE_MAPS_APIKEY } from "@env";
@@ -15,7 +20,9 @@ const Map = () => {
   const [parkingDistance, setParkingDistance] = useState(1.2);
 
   const destination = useSelector(selectDestination);
-  const garageDetails = useSelector(selectParkingMarker)
+  const garageDetails = useSelector(selectParkingMarker);
+  const garageList = useSelector(selectGarageList);
+
   const mapRef = useRef(null);
   const navigation = useNavigation();
 
@@ -23,7 +30,7 @@ const Map = () => {
 
   useEffect(() => {
     setTimeout(() => {
-      mapRef.current.fitToElements([destination, "marker"], {
+      mapRef.current.fitToElements(["destination", "garagemarkers"], {
         edgePadding: { top: 50, bottom: 50, left: 50, right: 50 },
         animated: "true",
       });
@@ -46,17 +53,15 @@ const Map = () => {
       }}
       customMapStyle={mapStyle}
     >
-
-      {
-        garageDetails && (
-          <MapViewDirections
+      {garageDetails && (
+        <MapViewDirections
           origin={{
             latitude: destination?.latitude,
             longitude: destination?.longitude,
           }}
           destination={{
             latitude: garageDetails?.latitude,
-          longitude: garageDetails?.longitude,
+            longitude: garageDetails?.longitude,
           }}
           onReady={({ distance, duration }) => {
             seTparkingDuration(duration);
@@ -66,9 +71,8 @@ const Map = () => {
           strokeColor={cssVariables.accent}
           strokeWidth={2}
         />
-        )
-      }
-     
+      )}
+
       {destination && (
         <Marker
           coordinate={{
@@ -85,7 +89,44 @@ const Map = () => {
         />
       )}
 
-      <Marker
+      {garageList &&
+        garageList.map((garage) => {
+          return (
+            <Marker
+            key={garage._id}
+              coordinate={{
+                latitude: garage?.locationX,
+                longitude: garage?.locationY,
+              }}
+              onPress={() => {
+                dispatch(
+                  setParking({
+                    latitude: garage?.locationX,
+                    longitude: garage?.locationY,
+                    distance: parkingDistance,
+                    duration: parkingDuration,
+                    name : garage?.name,
+                    address : garage?.address,
+                    price: garage?.slots[0]?.chargePerHour
+                  })
+                );
+                navigation.navigate("GarageDetails", {
+                  latitude: garage?.locationX,
+                  longitude: garage?.locationY,
+                });
+              }}
+              image={imagePath.garageMarker}
+              title={garage?.name}
+              identifier="garageMarkers"
+              anchor={{
+                x: 0.5,
+                y: 0.9,
+              }}
+            />
+          );
+        })}
+
+      {/* <Marker
         coordinate={{
           latitude: 19.007416,
           longitude: 73.095219,
@@ -138,10 +179,8 @@ const Map = () => {
           x: 0.5,
           y: 0.9,
         }}
-      />
+      /> */}
     </MapView>
-
-    
   );
 };
 

@@ -17,6 +17,7 @@ const initialState = {
   */
   travelTimeInformation: null,
   userProfile: null,
+  garageList: null
   /*
     email:
     password:
@@ -29,6 +30,9 @@ export const navSlice = createSlice({
   reducers: {
     setParking: (state, action) => {
       state.parking = action.payload;
+    },
+    setGarageList: (state, action) => {
+      state.garageList = action.payload;
     },
     setDestination: (state, action) => {
       state.destination = action.payload;
@@ -47,6 +51,7 @@ export const {
   setDestination,
   setTravelTimeInformation,
   setUserProfile,
+  setGarageList
 } = navSlice.actions;
 
 //selectors
@@ -55,5 +60,6 @@ export const selectDestination = (state) => state.nav.destination;
 export const selectTravelTimeInformation = (state) =>
   state.nav.travelTimeInformation;
 export const selectUserProfile = (state) => state.nav.userProfile;
+export const selectGarageList = (state) => state.nav.garageList;
 
 export default navSlice.reducer;

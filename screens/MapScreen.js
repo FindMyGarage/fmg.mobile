@@ -1,26 +1,54 @@
 import { StyleSheet, Text, View } from "react-native";
-import React, {useEffect }from "react";
+import React, { useEffect } from "react";
 import Map from "../components/Map";
 import cssVariables from "../utilities/cssVariables";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import GarageDetails from "../components/GarageDetails";
 import GarageList from "../components/GarageList";
-import { useSelector } from "react-redux";
-import { selectDestination, selectUserProfile } from "../slices/navSlice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  selectDestination,
+  selectUserProfile,
+  setGarageList,
+} from "../slices/navSlice";
+import api from "../api/index";
 
 const Stack = createNativeStackNavigator();
 
 const MapScreen = () => {
-
   const userDetail = useSelector(selectUserProfile);
   const destination = useSelector(selectDestination);
 
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    
+    if (!destination) return;
     // api call for all the garages
-    
-  }, [userDetail , destination])
-  
+    const getCloseGarageList = async () => {
+      try {
+        const response = await api.post(
+          "/garages/find",
+          {
+            latitude: destination.latitude,
+            longitude: destination.longitude,
+            limit: 0,
+            radius: 10,
+          },
+          {
+            headers: {
+              "content-type": "application/json",
+            },
+          }
+        );
+
+        dispatch(setGarageList(response?.data?.garages));
+      } catch (error) {
+        console.log("error fetching garageList");
+      }
+    };
+
+    getCloseGarageList();
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -73,8 +101,8 @@ const styles = StyleSheet.create({
     bottom: 0,
     right: 0,
     borderRadius: 20,
-    borderBottomLeftRadius:0,
-    borderBottomRightRadius : 0,
+    borderBottomLeftRadius: 0,
+    borderBottomRightRadius: 0,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,

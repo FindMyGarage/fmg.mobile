@@ -5,10 +5,37 @@ import imagePath from "../utilities/imagePath";
 import { Icon } from "@rneui/base";
 import Button from "./Button";
 import { useSelector } from "react-redux";
-import { selectParkingMarker } from "../slices/navSlice";
+import getDirections from "react-native-google-maps-directions";
+import { selectDestination, selectParkingMarker } from "../slices/navSlice";
 
 const GarageDetails = () => {
   const garageDetails = useSelector(selectParkingMarker);
+  const destination = useSelector(selectDestination)
+
+  const handleGetDirections = () => {
+    const data = {
+      source: {
+        latitude: destination.latitude,
+        longitude: destination.longitude,
+      },
+      destination: {
+        latitude: garageDetails.latitude,
+        longitude: garageDetails.longitude,
+      },
+      params: [
+        {
+          key: "travelmode",
+          value: "driving", // may be "walking", "bicycling" or "transit" as well
+        },
+        {
+          key: "dir_action",
+          value: "navigate", // this instantly initializes navigation using the given travel mode
+        },
+      ],
+    };
+
+    getDirections(data);
+  };
 
   return (
     <View style={styles.container}>
@@ -23,14 +50,14 @@ const GarageDetails = () => {
           />
         </View>
         <View style={styles.heading}>
-          <Text style={styles.headingText}>SILVASA Parking Lot</Text>
+          <Text style={styles.headingText}>{garageDetails?.name}</Text>
           <View style={[styles.infos]}>
-            <Text style={styles.headingText}>Rs 40.55 / hr</Text>
+            <Text style={styles.headingText}>Rs {garageDetails?.price} / hr</Text>
           </View>
         </View>
         <View style={styles.secondary}>
           <Text style={styles.secondaryText}>
-            Sec - 17 , pl-8A/9 , Kamothe , NaviMumbai
+            {garageDetails?.address}
           </Text>
         </View>
         <View style={styles.infosContent}>
@@ -66,7 +93,9 @@ const GarageDetails = () => {
               marginLeft: 0,
             },
           }}
-          buttonFunction={null}
+          buttonFunction={() => {
+            handleGetDirections()
+          }}
           icon={null}
           buttonName={"Take Me there"}
         />

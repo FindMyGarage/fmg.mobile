@@ -5,7 +5,11 @@ import cssVariables from "../utilities/cssVariables";
 import SearchPlace from "../components/SearchPlace";
 import imagePath from "../utilities/imagePath";
 import { useDispatch, useSelector } from "react-redux";
-import { selectDestination, selectUserProfile, setDestination } from "../slices/navSlice";
+import {
+  selectDestination,
+  selectUserProfile,
+  setDestination,
+} from "../slices/navSlice";
 import { useNavigation } from "@react-navigation/native";
 import * as Location from "expo-location";
 import Button from "../components/Button";
@@ -25,8 +29,10 @@ const HomePage = () => {
     let location = await Location.getCurrentPositionAsync({});
     dispatch(
       setDestination({
-        latitude: location.coords.latitude,
-        longitude: location.coords.longitude,
+        // latitude: location.coords.latitude,
+        // longitude: location.coords.longitude,
+        latitude: 22.96468,
+        longitude: 88.525105,
       })
     );
     navigation.navigate("MapScreen");

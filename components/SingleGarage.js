@@ -1,13 +1,39 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View ,TouchableOpacity} from "react-native";
 import React from "react";
 import cssVariables from "../utilities/cssVariables";
 import { Icon } from "@rneui/base";
+import { useDispatch } from "react-redux";
+import { setParking } from "../slices/navSlice";
+import { useNavigation } from "@react-navigation/native";
 
-const SingleGarage = () => {
+
+const SingleGarage = ({garage}) => {
+
+  const dispatch = useDispatch();
+  const navigation = useNavigation();
+
   return (
-    <View style={styles.container}>
+    <TouchableOpacity
+      onPress={() => {
+        dispatch(
+          setParking({
+            latitude: garage?.locationX,
+            longitude: garage?.locationY,
+            distance: 1.2,
+            duration: 5.65,
+            name : garage?.name,
+            address : garage?.address,
+            price: garage?.slots[0]?.chargePerHour
+          })
+        );
+        navigation.navigate("GarageDetails", {
+          latitude: garage?.locationX,
+          longitude: garage?.locationY,
+        });
+      }}
+    style={styles.container}>
       <View style={styles.heading}>
-        <Text style={styles.headingText}>SILVASA Parking Lot</Text>
+        <Text style={styles.headingText}>{garage?.name.toUpperCase()}</Text>
         <View style={[styles.infos]}>
           {/* <Icon
         type="font-awesome"
@@ -15,7 +41,7 @@ const SingleGarage = () => {
         color="green"
         size={10}
       /> */}
-          <Text style={styles.headingText}>Rs 40.55 / hr</Text>
+          <Text style={styles.headingText}>Rs {garage.slots[0].chargePerHour} / hr</Text>
         </View>
       </View>
       <View style={styles.infos}>
@@ -35,10 +61,10 @@ const SingleGarage = () => {
             color={cssVariables.red}
             size={14}
           />
-          <Text style={styles.slot}>0.5 km . 2 min away</Text>
+          <Text style={styles.slot}>0.5 km . {Math.floor((Math.random() * 10) + 1)} min away</Text>
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
