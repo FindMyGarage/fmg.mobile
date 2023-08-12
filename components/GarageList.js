@@ -15,10 +15,10 @@ const GarageList = () => {
       <View style={styles.listContainer}>
         <Text style={styles.heading}>Parkings Nearby</Text>
 
-        {garageList.length === 0 &&<View style={styles.noGarages}>
+        {garageList?.length === 0 &&<View style={styles.noGarages}>
            <Text style={styles.noGaragesText}>No Garages available Nearby</Text></View>}
 
-        {garageList.length !== 0 && (
+        {garageList?.length !== 0 && (
           <FlatList
             style={styles.lists}
             data={garageList}
