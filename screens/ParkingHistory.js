@@ -21,11 +21,6 @@ const ParkingHistory = () => {
       </View>
       <View style={styles.parkinglist}>
         <HistoryParking />
-        <HistoryParking />
-        <HistoryParking />
-        <HistoryParking />
-        <HistoryParking />
-        <HistoryParking />
       </View>
     </SafeAreaView>
   );
