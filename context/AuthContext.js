@@ -49,7 +49,7 @@ export const AuthProvider = ({ children }) => {
         })
       );
       console.log("login succesful");
-      navigation.navigate("HomePage");
+      navigation.navigate("ApplicationWrapper");
       setLogin("userLoggedIn");
     } catch (error) {
       console.log("error occured", error);
@@ -93,7 +93,7 @@ export const AuthProvider = ({ children }) => {
           token: register?.data?.auth_token,
         })
       );
-      navigation.navigate("HomePage");
+      navigation.navigate("ApplicationWrapper");
       setLogin("userLoggedIn");
 
       console.log(register?.data);

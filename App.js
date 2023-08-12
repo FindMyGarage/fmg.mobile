@@ -3,7 +3,7 @@ import { StatusBar } from "expo-status-bar";
 import { Platform, StyleSheet, Text, View } from "react-native";
 import { store } from "./store";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import WelcomePage from "./screens/WelcomePage";
 import { useFonts } from "expo-font";
@@ -17,10 +17,16 @@ import { AuthProvider } from "./context/AuthContext";
 import Payment from "./screens/Payment";
 import CheckedIn from "./screens/CheckedIn";
 import CheckedOut from "./screens/CheckedOut";
+import { useEffect } from "react";
+import ApplicationWrapper from "./screens/ApplicationWrapper";
+
 
 const Stack = createNativeStackNavigator();
 
+
 export default function App() {
+
+  
   const [fontsLoaded] = useFonts({
     "Poppin-Black": require("./assets/fonts/Poppins-Black.ttf"),
     "Poppin-Bold": require("./assets/fonts/Poppins-Bold.ttf"),
@@ -30,6 +36,7 @@ export default function App() {
     "Poppin-Light": require("./assets/fonts/Poppins-Light.ttf"),
     "Poppin-Thin": require("./assets/fonts/Poppins-Thin.ttf"),
   });
+  
 
   return (
     <Provider store={store}>
@@ -42,28 +49,7 @@ export default function App() {
             />
 
             <Stack.Navigator>
-              {/* <Stack.Screen
-                name="CheckedOut"
-                component={CheckedOut}
-                options={{
-                  headerShown: false,
-                  gestureEnabled: true,
-                  gestureDirection: "horizontal",
-                  animationTypeForReplace: "push",
-                  animation: "slide_from_right",
-                }}
-              />
-            <Stack.Screen
-                name="CheckedIn"
-                component={CheckedIn}
-                options={{
-                  headerShown: false,
-                  gestureEnabled: true,
-                  gestureDirection: "horizontal",
-                  animationTypeForReplace: "push",
-                  animation: "slide_from_right",
-                }}
-              /> */}
+            
               <Stack.Screen
                 name="Welcome"
                 component={WelcomePage}
@@ -96,33 +82,39 @@ export default function App() {
                   animation: "slide_from_right",
                 }}
               />
+
               <Stack.Screen
-                name="HomePage"
-                component={HomePage}
+                name="ApplicationWrapper"
+                component={ApplicationWrapper}
                 options={{
                   headerShown: false,
-                  animationTypeForReplace: "push",
-                  animation: "slide_from_right",
-                  // animation: "slide_from_right",
-                }}
-              />
-              <Stack.Screen
-                name="MapScreen"
-                component={MapScreen}
-                options={{
-                  headerShown: false,
+                  gestureEnabled: true,
+                  gestureDirection: "horizontal",
                   animationTypeForReplace: "push",
                   animation: "slide_from_right",
                 }}
               />
-              <Stack.Screen
-                name="ParkingHistory"
-                component={ParkingHistory}
+             
+                <Stack.Screen
+                name="CheckedOut"
+                component={CheckedOut}
                 options={{
                   headerShown: false,
-                  animationTypeForReplace: "pop",
-                  animation: "fade_from_bottom",
-                  animationDuration: 1,
+                  gestureEnabled: true,
+                  gestureDirection: "horizontal",
+                  animationTypeForReplace: "push",
+                  animation: "slide_from_right",
+                }}
+              />
+            <Stack.Screen
+                name="CheckedIn"
+                component={CheckedIn}
+                options={{
+                  headerShown: false,
+                  gestureEnabled: true,
+                  gestureDirection: "horizontal",
+                  animationTypeForReplace: "push",
+                  animation: "slide_from_right",
                 }}
               />
               {/* 

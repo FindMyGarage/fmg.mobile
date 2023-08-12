@@ -8,9 +8,11 @@ import Button from "../components/Button";
 
 
 const CheckedOut = () => {
+  const booking = route.params.booking
+console.log(booking);
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.profileImage}></View>
+      {/* <View style={styles.profileImage}></View> */}
       <Icon
         type="feather"
         name="check-circle"
@@ -26,17 +28,17 @@ const CheckedOut = () => {
         />
       </View>
       
-      <Text  style={styles.parkingLotName}>
+      {/* <Text  style={styles.parkingLotName}>
         SILVASA Parking Lot
       </Text>
       <Text style={styles.parkingLotAddress}>
       Sec - 17 , pl-8A/9 , Kamothe , NaviMumbai
-      </Text>
+      </Text> */}
       <Text  style={styles.parkingSlotText}>
        Total Amount
       </Text>
       <Text  style={styles.parkingSlotNumber}>
-        312 Rs
+        {booking?.amount} Rs
       </Text>
       <Text  style={styles.totalTime}>
         1 hr 12 min

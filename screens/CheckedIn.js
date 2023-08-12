@@ -5,10 +5,13 @@ import cssVariables from "../utilities/cssVariables";
 import { Icon } from "@rneui/base";
 import imagePath from "../utilities/imagePath";
 
-const CheckedIn = () => {
+const CheckedIn = ({ route }) => {
+  const booking = route.params.booking;
+  console.log(booking);
+
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.profileImage}></View>
+      {/* <View style={styles.profileImage}></View> */}
       <Icon
         type="feather"
         name="check-circle"
@@ -23,22 +26,16 @@ const CheckedIn = () => {
           source={imagePath.parkingLotImage}
         />
       </View>
-      
-      <Text  style={styles.parkingLotName}>
+
+      {/* <Text  style={styles.parkingLotName}>
         SILVASA Parking Lot
       </Text>
       <Text style={styles.parkingLotAddress}>
       Sec - 17 , pl-8A/9 , Kamothe , NaviMumbai
-      </Text>
-      <Text  style={styles.parkingSlotText}>
-        Slot No
-      </Text>
-      <Text  style={styles.parkingSlotNumber}>
-        P-24A
-      </Text>
-      <Text style={styles.copyright}>
-        PARKIFY OFFICIAL
-      </Text>
+      </Text> */}
+      <Text style={styles.parkingSlotText}>Slot No</Text>
+      <Text style={styles.parkingSlotNumber}>{booking?.slotName}</Text>
+      <Text style={styles.copyright}>PARKIFY OFFICIAL</Text>
     </SafeAreaView>
   );
 };
@@ -94,7 +91,7 @@ const styles = StyleSheet.create({
     fontSize: cssVariables.textSmall,
     color: cssVariables.primaryWhite,
     marginTop: cssVariables.marginXSmall,
-    opacity: 0.4
+    opacity: 0.4,
   },
   parkingSlotText: {
     fontFamily: "Poppin-Regular",
@@ -102,19 +99,19 @@ const styles = StyleSheet.create({
     color: cssVariables.primaryWhite,
     marginTop: cssVariables.marginXlarge,
   },
-  parkingSlotNumber:{
+  parkingSlotNumber: {
     fontFamily: "Poppin-Regular",
     fontSize: cssVariables.textHeading,
     color: cssVariables.primaryWhite,
-    color: cssVariables.accent
+    color: cssVariables.accent,
   },
-  copyright:{
+  copyright: {
     position: "absolute",
     fontFamily: "Poppin-Regular",
     fontSize: cssVariables.textXSmall,
     color: cssVariables.primaryWhite,
     color: cssVariables.primaryWhite,
     bottom: cssVariables.marginSmall,
-    opacity: 0.4
-  }
+    opacity: 0.4,
+  },
 });

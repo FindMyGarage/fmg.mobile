@@ -17,7 +17,6 @@ import Button from "../components/Button";
 import api from "../api/index";
 
 
-
 const HomePage = () => {
   const navigation = useNavigation();
   const destination = useSelector(selectDestination);
@@ -25,31 +24,23 @@ const HomePage = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    
     const getCompleteUserProfile = async () => {
-      console.log(userDetails.auth_token);
+      
       try {
-        const response = await api.get(
-          "/users/profile",
-          {
-            headers: {
-              Authentication : `Bearer ${userDetails.token}`
-            },
-          }
-        );
-
-        
-        dispatch(setCompleteUserProfile(response?.data?.user))
+        const response = await api.get("/users/profile", {
+          headers: {
+            Authentication: `Bearer ${userDetails.token}`,
+          },
+        });
+        dispatch(setCompleteUserProfile(response?.data?.user));
       } catch (error) {
         console.log("error fetching userProfile", error);
       }
     };
 
-    getCompleteUserProfile()
+    getCompleteUserProfile();
+  }, [userDetails]);
 
-    
-    
-  }, [userDetails])
   
 
   const setCurrentLocation = async () => {
