@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View ,TouchableOpacity} from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import React from "react";
 import cssVariables from "../utilities/cssVariables";
 import { Icon } from "@rneui/base";
@@ -6,11 +6,13 @@ import { useDispatch } from "react-redux";
 import { setParking } from "../slices/navSlice";
 import { useNavigation } from "@react-navigation/native";
 
-
-const SingleGarage = ({garage}) => {
-
+const SingleGarage = ({ garage }) => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
+
+  const slotsAvailable = garage.slots.filter(
+    (slot) => slot.status === "available"
+  )?.length;
 
   return (
     <TouchableOpacity
@@ -21,9 +23,10 @@ const SingleGarage = ({garage}) => {
             longitude: garage?.locationY,
             distance: 1.2,
             duration: 5.65,
-            name : garage?.name,
-            address : garage?.address,
-            price: garage?.slots[0]?.chargePerHour
+            name: garage?.name,
+            address: garage?.address,
+            price: garage?.slots[0]?.chargePerHour,
+            slots: garage?.slots,
           })
         );
         navigation.navigate("GarageDetails", {
@@ -31,7 +34,8 @@ const SingleGarage = ({garage}) => {
           longitude: garage?.locationY,
         });
       }}
-    style={styles.container}>
+      style={styles.container}
+    >
       <View style={styles.heading}>
         <Text style={styles.headingText}>{garage?.name.toUpperCase()}</Text>
         <View style={[styles.infos]}>
@@ -41,7 +45,9 @@ const SingleGarage = ({garage}) => {
         color="green"
         size={10}
       /> */}
-          <Text style={styles.headingText}>Rs {garage.slots[0].chargePerHour} / hr</Text>
+          <Text style={styles.headingText}>
+            Rs {garage.slots[0].chargePerHour} / hr
+          </Text>
         </View>
       </View>
       <View style={styles.infos}>
@@ -52,7 +58,7 @@ const SingleGarage = ({garage}) => {
             color={cssVariables.accent}
             size={10}
           />
-          <Text style={styles.slot}>15 Slots available</Text>
+          <Text style={styles.slot}>{slotsAvailable} Slots available</Text>
         </View>
         <View style={[styles.infos]}>
           <Icon
@@ -61,7 +67,9 @@ const SingleGarage = ({garage}) => {
             color={cssVariables.red}
             size={14}
           />
-          <Text style={styles.slot}>0.5 km . {Math.floor((Math.random() * 10) + 1)} min away</Text>
+          <Text style={styles.slot}>
+            0.5 km . {Math.floor(Math.random() * 10 + 1)} min away
+          </Text>
         </View>
       </View>
     </TouchableOpacity>

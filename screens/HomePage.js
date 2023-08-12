@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import cssVariables from "../utilities/cssVariables";
 import SearchPlace from "../components/SearchPlace";
@@ -8,17 +8,49 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   selectDestination,
   selectUserProfile,
+  setCompleteUserProfile,
   setDestination,
 } from "../slices/navSlice";
 import { useNavigation } from "@react-navigation/native";
 import * as Location from "expo-location";
 import Button from "../components/Button";
+import api from "../api/index";
+
+
 
 const HomePage = () => {
   const navigation = useNavigation();
   const destination = useSelector(selectDestination);
   const userDetails = useSelector(selectUserProfile);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    
+    const getCompleteUserProfile = async () => {
+      console.log(userDetails.auth_token);
+      try {
+        const response = await api.get(
+          "/users/profile",
+          {
+            headers: {
+              Authentication : `Bearer ${userDetails.token}`
+            },
+          }
+        );
+
+        
+        dispatch(setCompleteUserProfile(response?.data?.user))
+      } catch (error) {
+        console.log("error fetching userProfile", error);
+      }
+    };
+
+    getCompleteUserProfile()
+
+    
+    
+  }, [userDetails])
+  
 
   const setCurrentLocation = async () => {
     let { status } = await Location.requestForegroundPermissionsAsync();

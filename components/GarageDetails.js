@@ -12,6 +12,10 @@ const GarageDetails = () => {
   const garageDetails = useSelector(selectParkingMarker);
   const destination = useSelector(selectDestination)
 
+  
+  const slotsAvailable = garageDetails.slots.filter(slot => slot.status === "available")?.length;
+
+
   const handleGetDirections = () => {
     const data = {
       source: {
@@ -68,7 +72,7 @@ const GarageDetails = () => {
               color={cssVariables.accent}
               size={10}
             />
-            <Text style={styles.slot}>15 Slots available</Text>
+            <Text style={styles.slot}>{slotsAvailable} Slots available</Text>
           </View>
           <View style={[styles.infos]}>
             <Icon

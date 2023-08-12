@@ -37,23 +37,20 @@ export const AuthProvider = ({ children }) => {
         }
       );
 
-      const { userEmail, userPassword, _id, username, auth_token } =
-        register?.data?.user;
+      const userLoginDetail = register?.data?.user;
 
       dispatch(
         setUserProfile({
-          userEmail,
-          userPassword,
-          _id,
-          username,
-          auth_token,
+          email: userLoginDetail?.email,
+          Password: userLoginDetail?.password,
+          id: userLoginDetail?._id,
+          name: userLoginDetail?.name,
+          token: register?.data?.auth_token,
         })
       );
       console.log("login succesful");
       navigation.navigate("HomePage");
       setLogin("userLoggedIn");
-
-      console.log(register?.data);
     } catch (error) {
       console.log("error occured", error);
     }
@@ -85,16 +82,15 @@ export const AuthProvider = ({ children }) => {
         }
       );
 
-      const { userEmail, userPassword, _id, username, auth_token } =
-        register?.data?.user;
+      const userLoginDetail = register?.data?.user;
 
       dispatch(
         setUserProfile({
-          userEmail,
-          userPassword,
-          _id,
-          username,
-          auth_token,
+          email: userLoginDetail?.email,
+          Password: userLoginDetail?.password,
+          id: userLoginDetail?._id,
+          name: userLoginDetail?.name,
+          token: register?.data?.auth_token,
         })
       );
       navigation.navigate("HomePage");

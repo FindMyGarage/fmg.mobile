@@ -107,7 +107,8 @@ const Map = () => {
                     duration: parkingDuration,
                     name : garage?.name,
                     address : garage?.address,
-                    price: garage?.slots[0]?.chargePerHour
+                    price: garage?.slots[0]?.chargePerHour,
+                    slots: garage?.slots
                   })
                 );
                 navigation.navigate("GarageDetails", {
@@ -126,60 +127,7 @@ const Map = () => {
           );
         })}
 
-      {/* <Marker
-        coordinate={{
-          latitude: 19.007416,
-          longitude: 73.095219,
-        }}
-        onPress={() => {
-          dispatch(
-            setParking({
-              latitude: 19.007416,
-              longitude: 73.095219,
-              distance: parkingDistance,
-              duration: parkingDuration,
-            })
-          );
-          navigation.navigate("GarageDetails",{
-            latitude: 19.007416,
-            longitude: 73.095219,
-          });
-        }}
-        image={imagePath.garageMarker}
-        title="Silvasa Parking Lot"
-        identifier="marker"
-        anchor={{
-          x: 0.5,
-          y: 0.9,
-        }}
-      />
-      <Marker
-        coordinate={{
-          latitude: 19.017413,
-          longitude: 73.095214,
-        }}
-        onPress={() => {
-          dispatch(
-            setParking({
-              latitude: 19.017413,
-              longitude: 73.095214,
-              distance: parkingDistance,
-              duration: parkingDuration,
-            })
-          );
-          navigation.navigate("GarageDetails",{
-            latitude: 19.017413,
-              longitude: 73.095214,
-          });
-        }}
-        image={imagePath.garageMarker}
-        title="Kalyani parking spot"
-        identifier="marker"
-        anchor={{
-          x: 0.5,
-          y: 0.9,
-        }}
-      /> */}
+     
     </MapView>
   );
 };

@@ -2,26 +2,11 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   parking: null,
-  /*
-    location:{
-      latitude:
-      longitude:
-    }
-  */
   destination: null,
-  /*
-    location:{
-      latitude:
-      longitude:
-    }
-  */
   travelTimeInformation: null,
   userProfile: null,
-  garageList: null
-  /*
-    email:
-    password:
-  */
+  garageList: null,
+  completeUserProfile: null,
 };
 
 export const navSlice = createSlice({
@@ -43,6 +28,9 @@ export const navSlice = createSlice({
     setUserProfile: (state, action) => {
       state.userProfile = action.payload;
     },
+    setCompleteUserProfile: (state, action) => {
+      state.completeUserProfile = action.payload;
+    },
   },
 });
 
@@ -51,7 +39,8 @@ export const {
   setDestination,
   setTravelTimeInformation,
   setUserProfile,
-  setGarageList
+  setGarageList,
+  setCompleteUserProfile,
 } = navSlice.actions;
 
 //selectors
@@ -60,6 +49,8 @@ export const selectDestination = (state) => state.nav.destination;
 export const selectTravelTimeInformation = (state) =>
   state.nav.travelTimeInformation;
 export const selectUserProfile = (state) => state.nav.userProfile;
+export const selectCompleteUserProfile = (state) =>
+  state.nav.completeUserProfile;
 export const selectGarageList = (state) => state.nav.garageList;
 
 export default navSlice.reducer;

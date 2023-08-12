@@ -4,12 +4,14 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import cssVariables from "../utilities/cssVariables";
 import HistoryParking from "../components/HistoryParking";
 import { useSelector } from "react-redux";
-import { selectUserProfile } from "../slices/navSlice";
+import { selectCompleteUserProfile, selectUserProfile } from "../slices/navSlice";
 
 
 const ParkingHistory = () => {
 
+
   const userDetail = useSelector(selectUserProfile);
+  const completeUserProfile = useSelector(selectCompleteUserProfile);
 
   return (
     <SafeAreaView style={styles.container}>
