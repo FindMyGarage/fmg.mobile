@@ -82,7 +82,7 @@ const CheckedOut = ({route}) => {
         />
       
       <Text style={styles.copyright}>
-        PARKIFY OFFICIAL
+        FIND MY SPACE OFFICIAL
       </Text>
     </SafeAreaView>
   );

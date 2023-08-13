@@ -91,6 +91,10 @@ const Map = () => {
 
       {garageList &&
         garageList.map((garage) => {
+
+          const slotsAvailable = garage.slots.filter(slot => slot.status === "available")?.length;
+
+
           return (
             <Marker
             key={garage._id}
@@ -117,7 +121,7 @@ const Map = () => {
                 });
               }}
               image={imagePath.garageMarker}
-              title={garage?.name}
+              title={`${garage?.name}: slot available ${slotsAvailable}`}
               identifier="garageMarkers"
               anchor={{
                 x: 0.5,

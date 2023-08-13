@@ -35,7 +35,7 @@ const CheckedIn = ({ route }) => {
       </Text> */}
       <Text style={styles.parkingSlotText}>Slot No</Text>
       <Text style={styles.parkingSlotNumber}>{booking?.slotName}</Text>
-      <Text style={styles.copyright}>PARKIFY OFFICIAL</Text>
+      <Text style={styles.copyright}>FIND MY SPACE OFFICIAL</Text>
     </SafeAreaView>
   );
 };
