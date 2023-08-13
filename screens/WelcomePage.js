@@ -12,7 +12,7 @@ const WelcomePage = () => {
     <SafeAreaView style={styles.container}>
       <View style={styles.center}>
         <Text style={{ fontFamily: "Poppin-Light", fontSize: 40 }}>
-          FIND MY SPACE
+          FindMyGarage
         </Text>
         <View style={[styles.center]}>
           <Image style={styles.parkifyLogo} source={imagePath.parkifyLogo} />

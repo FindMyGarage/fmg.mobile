@@ -65,7 +65,7 @@ const HomePage = () => {
     <SafeAreaView style={styles.container}>
       <View>
         <View style={styles.contentHeader}>
-          <Text style={styles.headingText}>PARKIFY</Text>
+          <Text style={styles.headingText}>FindMyGarage</Text>
           <View style={styles.profile}></View>
         </View>
         <View style={styles.midContainer}>
