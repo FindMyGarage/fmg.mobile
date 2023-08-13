@@ -56,11 +56,22 @@ export const userRegister = async({
   
 };
 
-export const getUserDetail = async ({ userId }) => {
+export const getUserDetail = async (body) => {
   try{
-    const user = await api.get(`/users/profile2/${userId}`);
-    return user;
+    const user = await api.get("/users/profile2/64aaf6cf73acfa7b6d4e7911");
+    // console.log(user.data);
+    return user.data;
   }catch(e){
     console.log(e);
   }
 };
+
+export const payBooking = async (body) => {
+  try{
+    const payment = await api.post("/bookings/pay", body);
+    console.log(payment);
+    return payment.data;
+  }catch(e){
+    console.log(e);
+  }
+}

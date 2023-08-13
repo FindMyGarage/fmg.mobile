@@ -60,20 +60,43 @@ const ApplicationWrapper = () => {
     //   es.close();
     // };
     console.log("Calling profile api every 1 sec");
-    const interval = setInterval(() => {
-      console.log("Calling profile api");
-      api
-        .get("/profile")
-        .then((response) => {
-          console.log("profile api response", response);
-          if (response?.data?.user) {
-            dispatch(setUserProfile(response?.data?.user));
+    let bookingMode = "none";
+    // possible - none, inbooking, checkedout
+    const fetchData = async () => {
+      try {
+        const interval = setInterval(async () => {
+          console.log("Calling profile api");
+          let response = await getUserDetail({ userId: "dummy" });
+          // console.log(response.user);
+          if(!response?.user?.bookings?.length) return;
+          let latestbooking = response?.user?.bookings[0];
+          console.log(latestbooking);
+
+          if(latestbooking.status === "inbooking" && bookingMode !== "inbooking"){    
+            bookingMode = "inbooking";        
+            navigation.navigate("CheckedIn", {
+              booking: latestbooking,
+            });
           }
-        })
-        .catch((error) => {
-          console.log("error fetching profile");
-        });
-    });
+          else if(latestbooking.status === "checkedout" && bookingMode !== "checkedout"){
+            bookingMode = "checkedout";
+            navigation.replace("CheckedOut", {
+              booking: latestbooking,
+            });
+          }
+          else if(latestbooking.status === "completed"){
+            bookingMode = "none";
+          }
+          // console.log(response);
+          // const user = response.data;
+          // console.log(user);
+        }, 2000);
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
+    };
+
+    fetchData();
 }, []);
 
 

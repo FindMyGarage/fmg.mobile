@@ -7,9 +7,22 @@ import imagePath from "../utilities/imagePath";
 import Button from "../components/Button";
 
 
-const CheckedOut = () => {
+const CheckedOut = ({route}) => {
   const booking = route.params.booking
-console.log(booking);
+  // console.log(booking);
+
+  const calculateDuration = (startTime, endTime) => {
+    const durationInMilliseconds = endTime - startTime;
+    const hours = Math.floor(durationInMilliseconds / (1000 * 60 * 60));
+    const minutes = Math.floor((durationInMilliseconds % (1000 * 60 * 60)) / (1000 * 60));
+    return { hours, minutes };
+  };
+
+  // if startime and endtime exists
+  const startTime = new Date(booking?.startTime);
+  const endTime = new Date(booking?.endTime);
+
+  const { hours, minutes } = calculateDuration(startTime, endTime);
   return (
     <SafeAreaView style={styles.container}>
       {/* <View style={styles.profileImage}></View> */}
@@ -38,10 +51,11 @@ console.log(booking);
        Total Amount
       </Text>
       <Text  style={styles.parkingSlotNumber}>
-        {booking?.amount} Rs
+        Rs. {Math.round(booking?.amount * 100)/100}
       </Text>
       <Text  style={styles.totalTime}>
-        1 hr 12 min
+        {/** StartTime - Endtime into minutes */}
+        {hours} hours and {minutes} minutes
       </Text>
 
       <Button
@@ -53,7 +67,11 @@ console.log(booking);
               fontSize : cssVariables.textMedium
             },
           }}
-          buttonFunction={null}
+          buttonFunction={()  => {
+             // Call pay now api
+             // redirect to home page
+            }
+          }
           icon={null}
           buttonName={"Pay Now"}
         />
