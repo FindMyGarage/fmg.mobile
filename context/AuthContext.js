@@ -34,7 +34,7 @@ export const AuthProvider = ({ children }) => {
           headers: {
             "content-type": "application/json",
           },
-        }
+        },
       );
 
       const userLoginDetail = register?.data?.user;
@@ -46,7 +46,7 @@ export const AuthProvider = ({ children }) => {
           id: userLoginDetail?._id,
           name: userLoginDetail?.name,
           token: register?.data?.auth_token,
-        })
+        }),
       );
       console.log("login succesful");
       navigation.navigate("ApplicationWrapper");
@@ -79,7 +79,7 @@ export const AuthProvider = ({ children }) => {
           headers: {
             "content-type": "application/json",
           },
-        }
+        },
       );
 
       const userLoginDetail = register?.data?.user;
@@ -91,7 +91,7 @@ export const AuthProvider = ({ children }) => {
           id: userLoginDetail?._id,
           name: userLoginDetail?.name,
           token: register?.data?.auth_token,
-        })
+        }),
       );
       navigation.navigate("ApplicationWrapper");
       setLogin("userLoggedIn");

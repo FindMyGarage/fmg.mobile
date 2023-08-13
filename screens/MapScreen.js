@@ -38,7 +38,7 @@ const MapScreen = () => {
             headers: {
               "content-type": "application/json",
             },
-          }
+          },
         );
 
         dispatch(setGarageList(response?.data?.garages));

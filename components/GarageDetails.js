@@ -10,11 +10,11 @@ import { selectDestination, selectParkingMarker } from "../slices/navSlice";
 
 const GarageDetails = () => {
   const garageDetails = useSelector(selectParkingMarker);
-  const destination = useSelector(selectDestination)
+  const destination = useSelector(selectDestination);
 
-  
-  const slotsAvailable = garageDetails.slots.filter(slot => slot.status === "available")?.length;
-
+  const slotsAvailable = garageDetails.slots.filter(
+    (slot) => slot.status === "available",
+  )?.length;
 
   const handleGetDirections = () => {
     const data = {
@@ -56,13 +56,13 @@ const GarageDetails = () => {
         <View style={styles.heading}>
           <Text style={styles.headingText}>{garageDetails?.name}</Text>
           <View style={[styles.infos]}>
-            <Text style={styles.headingText}>Rs {garageDetails?.price} / hr</Text>
+            <Text style={styles.headingText}>
+              Rs {garageDetails?.price} / hr
+            </Text>
           </View>
         </View>
         <View style={styles.secondary}>
-          <Text style={styles.secondaryText}>
-            {garageDetails?.address}
-          </Text>
+          <Text style={styles.secondaryText}>{garageDetails?.address}</Text>
         </View>
         <View style={styles.infosContent}>
           <View style={[styles.infos]}>
@@ -98,7 +98,7 @@ const GarageDetails = () => {
             },
           }}
           buttonFunction={() => {
-            handleGetDirections()
+            handleGetDirections();
           }}
           icon={null}
           buttonName={"Take Me there"}

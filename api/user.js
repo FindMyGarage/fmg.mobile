@@ -11,7 +11,7 @@ export const userLogin = ({ email, password }) => {
         headers: {
           "content-type": "text/json",
         },
-      }
+      },
     );
     console.log(login);
   } catch (e) {
@@ -21,7 +21,7 @@ export const userLogin = ({ email, password }) => {
   //get something from user
 };
 
-export const userRegister = async({
+export const userRegister = async ({
   name,
   licenseId,
   address,
@@ -29,7 +29,7 @@ export const userRegister = async({
   phone,
   password,
 }) => {
-    let register;
+  let register;
   try {
     register = await api.post(
       "/users/register",
@@ -45,33 +45,31 @@ export const userRegister = async({
         headers: {
           "content-type": "application/json",
         },
-      }
+      },
     );
-    
   } catch (e) {
-   console.log(e);
+    console.log(e);
   }
 
-  return register
-  
+  return register;
 };
 
 export const getUserDetail = async (body) => {
-  try{
+  try {
     const user = await api.get(`/users/profile2/${body.userId}`);
     // console.log(user.data);
     return user.data;
-  }catch(e){
+  } catch (e) {
     console.log(e);
   }
 };
 
 export const payBooking = async (body) => {
-  try{
+  try {
     const payment = await api.post("/bookings/pay", body);
     console.log(payment);
     return payment.data;
-  }catch(e){
+  } catch (e) {
     console.log(e);
   }
-}
+};

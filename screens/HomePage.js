@@ -16,7 +16,6 @@ import * as Location from "expo-location";
 import Button from "../components/Button";
 import api from "../api/index";
 
-
 const HomePage = () => {
   const navigation = useNavigation();
   const destination = useSelector(selectDestination);
@@ -25,7 +24,6 @@ const HomePage = () => {
 
   useEffect(() => {
     const getCompleteUserProfile = async () => {
-      
       try {
         const response = await api.get("/users/profile", {
           headers: {
@@ -41,8 +39,6 @@ const HomePage = () => {
     getCompleteUserProfile();
   }, [userDetails]);
 
-  
-
   const setCurrentLocation = async () => {
     let { status } = await Location.requestForegroundPermissionsAsync();
     if (status !== "granted") {
@@ -56,7 +52,7 @@ const HomePage = () => {
         // longitude: location.coords.longitude,
         latitude: 22.96468,
         longitude: 88.525105,
-      })
+      }),
     );
     navigation.navigate("MapScreen");
   };

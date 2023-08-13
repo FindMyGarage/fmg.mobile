@@ -56,7 +56,7 @@ const SearchPlace = () => {
             setDestination({
               latitude: details.geometry.location.lat,
               longitude: details.geometry.location.lng,
-            })
+            }),
           );
         }}
         returnKeyType={"search"}

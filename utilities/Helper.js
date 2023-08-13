@@ -16,7 +16,7 @@ export const currentLocation = async () => {
     setDestination({
       latitude: location.coords.latitude,
       longitude: location.coords.longitude,
-    })
+    }),
   );
   console.log(location.coords);
 };

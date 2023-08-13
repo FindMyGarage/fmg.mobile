@@ -15,7 +15,7 @@ const Stack = createNativeStackNavigator();
 
 const ApplicationWrapper = () => {
   const navigation = useNavigation();
-  const userDetail = useSelector(selectUserProfile)
+  const userDetail = useSelector(selectUserProfile);
 
   useEffect(() => {
     console.log("hey! there");
@@ -71,37 +71,40 @@ const ApplicationWrapper = () => {
           console.log("Calling profile api");
           let response = await getUserDetail({ userId: userDetail.id });
           // console.log(response.user);
-          if(!response?.user?.bookings?.length) return;
+          if (!response?.user?.bookings?.length) return;
           let latestbooking = response?.user?.bookings[0];
           console.log(latestbooking);
 
-          if(latestbooking.status === "inbooking" && bookingMode !== "inbooking"){    
-            bookingMode = "inbooking";        
+          if (
+            latestbooking.status === "inbooking" &&
+            bookingMode !== "inbooking"
+          ) {
+            bookingMode = "inbooking";
             navigation.navigate("CheckedIn", {
               booking: latestbooking,
             });
-          }
-          else if(latestbooking.status === "checkedout" && bookingMode !== "checkedout"){
+          } else if (
+            latestbooking.status === "checkedout" &&
+            bookingMode !== "checkedout"
+          ) {
             bookingMode = "checkedout";
             navigation.replace("CheckedOut", {
               booking: latestbooking,
             });
-          }
-          else if(latestbooking.status === "completed"){
+          } else if (latestbooking.status === "completed") {
             bookingMode = "none";
           }
           // console.log(response);
           // const user = response.data;
           // console.log(user);
-        }, 2000);
+        }, 1000);
       } catch (error) {
-        console.error('Error fetching user data:', error);
+        console.error("Error fetching user data:", error);
       }
     };
 
     fetchData();
-}, []);
-
+  }, []);
 
   return (
     <Stack.Navigator>

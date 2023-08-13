@@ -15,8 +15,13 @@ const GarageList = () => {
       <View style={styles.listContainer}>
         <Text style={styles.heading}>Parkings Nearby</Text>
 
-        {garageList?.length === 0 &&<View style={styles.noGarages}>
-           <Text style={styles.noGaragesText}>No Garages available Nearby</Text></View>}
+        {garageList?.length === 0 && (
+          <View style={styles.noGarages}>
+            <Text style={styles.noGaragesText}>
+              No Garages available Nearby
+            </Text>
+          </View>
+        )}
 
         {garageList?.length !== 0 && (
           <FlatList
@@ -67,16 +72,16 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%",
   },
-  noGarages:{
+  noGarages: {
     width: "100%",
     height: "100%",
-    display:"flex",
-    justifyContent:"center",
+    display: "flex",
+    justifyContent: "center",
     alignItems: "center",
   },
-  noGaragesText : {
+  noGaragesText: {
     color: cssVariables.primaryWhite,
     opacity: 0.5,
     fontSize: cssVariables.textSmall,
-  }
+  },
 });

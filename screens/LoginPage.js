@@ -21,14 +21,14 @@ const LoginPage = () => {
   const [email, onChangeEmail] = React.useState("");
   const [password, onChangePassword] = React.useState("");
 
-  const {loginUser}  = useContext(AuthContext);
+  const { loginUser } = useContext(AuthContext);
 
   const userLogin = () => {
     loginUser({
       email,
-      password
-    })
-  }
+      password,
+    });
+  };
 
   return (
     <SafeAreaView style={[styles.container]}>
@@ -62,7 +62,6 @@ const LoginPage = () => {
       <TouchableOpacity
         onPress={() => {
           userLogin();
-          
         }}
         style={[styles.login]}
       >

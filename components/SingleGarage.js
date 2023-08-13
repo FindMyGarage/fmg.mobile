@@ -11,7 +11,7 @@ const SingleGarage = ({ garage }) => {
   const navigation = useNavigation();
 
   const slotsAvailable = garage.slots.filter(
-    (slot) => slot.status === "available"
+    (slot) => slot.status === "available",
   )?.length;
 
   return (
@@ -27,7 +27,7 @@ const SingleGarage = ({ garage }) => {
             address: garage?.address,
             price: garage?.slots[0]?.chargePerHour,
             slots: garage?.slots,
-          })
+          }),
         );
         navigation.navigate("GarageDetails", {
           latitude: garage?.locationX,

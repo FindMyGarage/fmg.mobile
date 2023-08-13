@@ -8,16 +8,17 @@ import Button from "../components/Button";
 import { payBooking } from "../api/user";
 import { useNavigation } from "@react-navigation/native";
 
+const CheckedOut = ({ route }) => {
+  const booking = route.params.booking;
 
-const CheckedOut = ({route}) => {
-  const booking = route.params.booking
-  
   const navigation = useNavigation();
 
   const calculateDuration = (startTime, endTime) => {
     const durationInMilliseconds = endTime - startTime;
     const hours = Math.floor(durationInMilliseconds / (1000 * 60 * 60));
-    const minutes = Math.floor((durationInMilliseconds % (1000 * 60 * 60)) / (1000 * 60));
+    const minutes = Math.floor(
+      (durationInMilliseconds % (1000 * 60 * 60)) / (1000 * 60),
+    );
     return { hours, minutes };
   };
 
@@ -43,47 +44,42 @@ const CheckedOut = ({route}) => {
           source={imagePath.parkingLotImage}
         />
       </View>
-      
+
       {/* <Text  style={styles.parkingLotName}>
         SILVASA Parking Lot
       </Text>
       <Text style={styles.parkingLotAddress}>
       Sec - 17 , pl-8A/9 , Kamothe , NaviMumbai
       </Text> */}
-      <Text  style={styles.parkingSlotText}>
-       Total Amount
+      <Text style={styles.parkingSlotText}>Total Amount</Text>
+      <Text style={styles.parkingSlotNumber}>
+        Rs. {Math.round(booking?.amount * 100) / 100}
       </Text>
-      <Text  style={styles.parkingSlotNumber}>
-        Rs. {Math.round(booking?.amount * 100)/100}
-      </Text>
-      <Text  style={styles.totalTime}>
+      <Text style={styles.totalTime}>
         {/** StartTime - Endtime into minutes */}
         {hours} hours and {minutes} minutes
       </Text>
 
       <Button
-          buttonStyles={{
-            button: styles.buttons,
-            text: {
-              color: cssVariables.primaryBlack,
-              textAlign: "center",
-              fontSize : cssVariables.textMedium
-            },
-          }}
-          buttonFunction={()  => {
-             // Call pay now api
-             payBooking({bookingId : booking?._id})
-             navigation.navigate("ApplicationWrapper")
-             // redirect to home page
-            }
-          }
-          icon={null}
-          buttonName={"Pay Now"}
-        />
-      
-      <Text style={styles.copyright}>
-        FIND MY SPACE OFFICIAL
-      </Text>
+        buttonStyles={{
+          button: styles.buttons,
+          text: {
+            color: cssVariables.primaryBlack,
+            textAlign: "center",
+            fontSize: cssVariables.textMedium,
+          },
+        }}
+        buttonFunction={() => {
+          // Call pay now api
+          payBooking({ bookingId: booking?._id });
+          navigation.navigate("ApplicationWrapper");
+          // redirect to home page
+        }}
+        icon={null}
+        buttonName={"Pay Now"}
+      />
+
+      <Text style={styles.copyright}>FindMyGarage OFFICIAL</Text>
     </SafeAreaView>
   );
 };
@@ -139,7 +135,7 @@ const styles = StyleSheet.create({
     fontSize: cssVariables.textSmall,
     color: cssVariables.primaryWhite,
     marginTop: cssVariables.marginXSmall,
-    opacity: 0.4
+    opacity: 0.4,
   },
   parkingSlotText: {
     fontFamily: "Poppin-Regular",
@@ -147,33 +143,33 @@ const styles = StyleSheet.create({
     color: cssVariables.primaryWhite,
     marginTop: cssVariables.marginXlarge,
   },
-  parkingSlotNumber:{
+  parkingSlotNumber: {
     fontFamily: "Poppin-Regular",
     fontSize: cssVariables.textHeading,
     color: cssVariables.primaryWhite,
-    color: cssVariables.accent
+    color: cssVariables.accent,
   },
   totalTime: {
     fontFamily: "Poppin-Regular",
     fontSize: cssVariables.textXMedium,
     color: cssVariables.primaryWhite,
-    opacity: 0.6
+    opacity: 0.6,
   },
-  copyright:{
+  copyright: {
     position: "absolute",
     fontFamily: "Poppin-Regular",
     fontSize: cssVariables.textXSmall,
     color: cssVariables.primaryWhite,
     color: cssVariables.primaryWhite,
     bottom: cssVariables.marginSmall,
-    opacity: 0.4
+    opacity: 0.4,
   },
-  buttons:{
+  buttons: {
     width: "50%",
     backgroundColor: cssVariables.accent,
     textAlign: "center",
     padding: cssVariables.paddingSmall,
     marginTop: cssVariables.marginXlarge,
-    borderRadius: 6
-  }
+    borderRadius: 6,
+  },
 });

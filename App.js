@@ -20,13 +20,9 @@ import CheckedOut from "./screens/CheckedOut";
 import { useEffect } from "react";
 import ApplicationWrapper from "./screens/ApplicationWrapper";
 
-
 const Stack = createNativeStackNavigator();
 
-
 export default function App() {
-
-  
   const [fontsLoaded] = useFonts({
     "Poppin-Black": require("./assets/fonts/Poppins-Black.ttf"),
     "Poppin-Bold": require("./assets/fonts/Poppins-Bold.ttf"),
@@ -36,7 +32,6 @@ export default function App() {
     "Poppin-Light": require("./assets/fonts/Poppins-Light.ttf"),
     "Poppin-Thin": require("./assets/fonts/Poppins-Thin.ttf"),
   });
-  
 
   return (
     <Provider store={store}>
@@ -49,7 +44,6 @@ export default function App() {
             />
 
             <Stack.Navigator>
-            
               <Stack.Screen
                 name="Welcome"
                 component={WelcomePage}
@@ -94,8 +88,8 @@ export default function App() {
                   animation: "slide_from_right",
                 }}
               />
-             
-                <Stack.Screen
+
+              <Stack.Screen
                 name="CheckedOut"
                 component={CheckedOut}
                 options={{
@@ -106,7 +100,7 @@ export default function App() {
                   animation: "slide_from_right",
                 }}
               />
-            <Stack.Screen
+              <Stack.Screen
                 name="CheckedIn"
                 component={CheckedIn}
                 options={{

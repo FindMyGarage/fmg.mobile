@@ -91,13 +91,13 @@ const Map = () => {
 
       {garageList &&
         garageList.map((garage) => {
-
-          const slotsAvailable = garage.slots.filter(slot => slot.status === "available")?.length;
-
+          const slotsAvailable = garage.slots.filter(
+            (slot) => slot.status === "available",
+          )?.length;
 
           return (
             <Marker
-            key={garage._id}
+              key={garage._id}
               coordinate={{
                 latitude: garage?.locationX,
                 longitude: garage?.locationY,
@@ -109,11 +109,11 @@ const Map = () => {
                     longitude: garage?.locationY,
                     distance: parkingDistance,
                     duration: parkingDuration,
-                    name : garage?.name,
-                    address : garage?.address,
+                    name: garage?.name,
+                    address: garage?.address,
                     price: garage?.slots[0]?.chargePerHour,
-                    slots: garage?.slots
-                  })
+                    slots: garage?.slots,
+                  }),
                 );
                 navigation.navigate("GarageDetails", {
                   latitude: garage?.locationX,
@@ -130,8 +130,6 @@ const Map = () => {
             />
           );
         })}
-
-     
     </MapView>
   );
 };
