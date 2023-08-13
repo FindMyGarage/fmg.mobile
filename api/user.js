@@ -56,6 +56,11 @@ export const userRegister = async({
   
 };
 
-export const getUserDetail = ({ userId }) => {
-  //return something
+export const getUserDetail = async ({ userId }) => {
+  try{
+    const user = await api.get(`/users/profile2/${userId}`);
+    return user;
+  }catch(e){
+    console.log(e);
+  }
 };
