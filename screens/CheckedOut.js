@@ -5,11 +5,14 @@ import cssVariables from "../utilities/cssVariables";
 import { Icon } from "@rneui/base";
 import imagePath from "../utilities/imagePath";
 import Button from "../components/Button";
+import { payBooking } from "../api/user";
+import { useNavigation } from "@react-navigation/native";
 
 
 const CheckedOut = ({route}) => {
   const booking = route.params.booking
-  // console.log(booking);
+  
+  const navigation = useNavigation();
 
   const calculateDuration = (startTime, endTime) => {
     const durationInMilliseconds = endTime - startTime;
@@ -69,6 +72,8 @@ const CheckedOut = ({route}) => {
           }}
           buttonFunction={()  => {
              // Call pay now api
+             payBooking({bookingId : booking?._id})
+             navigation.navigate("ApplicationWrapper")
              // redirect to home page
             }
           }

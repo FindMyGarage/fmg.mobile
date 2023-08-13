@@ -8,11 +8,14 @@ import EventSource from "react-native-sse";
 import { useNavigation } from "@react-navigation/native";
 import "react-native-url-polyfill/auto";
 import { getUserDetail } from "../api/user";
+import { useSelector } from "react-redux";
+import { selectUserProfile } from "../slices/navSlice";
 
 const Stack = createNativeStackNavigator();
 
 const ApplicationWrapper = () => {
   const navigation = useNavigation();
+  const userDetail = useSelector(selectUserProfile)
 
   useEffect(() => {
     console.log("hey! there");
@@ -66,7 +69,7 @@ const ApplicationWrapper = () => {
       try {
         const interval = setInterval(async () => {
           console.log("Calling profile api");
-          let response = await getUserDetail({ userId: "dummy" });
+          let response = await getUserDetail({ userId: userDetail.id });
           // console.log(response.user);
           if(!response?.user?.bookings?.length) return;
           let latestbooking = response?.user?.bookings[0];

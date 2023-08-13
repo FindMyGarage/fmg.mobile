@@ -58,7 +58,7 @@ export const userRegister = async({
 
 export const getUserDetail = async (body) => {
   try{
-    const user = await api.get("/users/profile2/64aaf6cf73acfa7b6d4e7911");
+    const user = await api.get(`/users/profile2/${body.userId}`);
     // console.log(user.data);
     return user.data;
   }catch(e){
